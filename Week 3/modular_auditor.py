@@ -4,7 +4,7 @@
 # Returns an integer for valid input, "quit" to exit,
 # or None for an invalid input.
 def get_valid_input():
-    stock = input("Enter stock quantity (or 'quit' to exit): ")
+    stock = input("\nEnter stock quantity (or 'quit' to exit): ")
 
     if stock == "quit":
         return "quit"

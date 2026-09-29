@@ -25,7 +25,7 @@ while True:
         continue
 
     inventory += stock
-    print("Stock added successfully.")
+    print("Stock added successfully!\n")
 
     if inventory > 500:
         print("ALERT: Overstock! Inventory exceeds 500 units.")
