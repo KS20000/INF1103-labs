@@ -7,3 +7,9 @@ COPY auditor.py .
 CMD ["python", "auditor.py"]
 
 #Remember to save this file / ctrl s
+
+#Make sure Docker app is open, then write docker build -t xxx . 
+
+#Anyone can run your docker using docker run --rm -it xxx
+
+#docker images to see containers

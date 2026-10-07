@@ -1,8 +1,10 @@
 import json
 import os
 
-INVENTORY_FILE = "inventory.json"
-
+INVENTORY_FILE = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "inventory.json"
+)
 
 def add_product(products):
     print("\nAdd New Product")
@@ -41,10 +43,10 @@ def update_stock(products):
     product = search_product(products, product_id, announce=False)
 
     if product is None:
-        print("Product not found.")
+        print("\nProduct not found.")
         return
 
-    print("Product Found:")
+    print("\nProduct Found:")
     print(f"Name: {product['name']}")
     print(f"Current Stock: {product['stock']}")
 
@@ -123,13 +125,24 @@ def load_inventory():
 inventory = load_inventory()
 
 
+def save_inventory(products):
+    try:
+        with open(INVENTORY_FILE, "w") as file:
+            json.dump(products, file, indent=4)
+
+        print("Inventory saved successfully to inventory.json.")
+    except OSError:
+        print("Error: inventory could not be saved.")
+
+
 while True:
     print("\n----------- MENU -----------")
     print("1. Display All Products")
     print("2. Add Product")
     print("3. Update Stock")
     print("4. Search Product")
-    print("5. Exit")
+    print("5. Save Inventory")
+    print("6. Exit")
 
     choice = input("Enter option: ").strip()
 
@@ -142,7 +155,13 @@ while True:
     elif choice == "4":
         search_product(inventory)
     elif choice == "5":
-        print("Goodbye!")
+        print("\nSaving inventory...")
+        save_inventory(inventory)
+    elif choice == "6":
+        print("\nSaving inventory before exit...")
+        save_inventory(inventory)
+        print("Thank you for using Inventory Management System.")
+        print("Program terminated.")
         break
     else:
-        print("Invalid option. Enter a number from 1 to 5.")
+        print("Invalid option. Enter a number from 1 to 6.")
