@@ -1,9 +1,7 @@
-# Each product is a dictionary, and inventory is a list of products.
-inventory = [
-    {"id": "P001", "name": "Laptop", "price": 1200.00, "stock": 15},
-    {"id": "P002", "name": "Mouse", "price": 25.50, "stock": 40},
-    {"id": "P003", "name": "Keyboard", "price": 45.00, "stock": 25},
-]
+import json
+import os
+
+INVENTORY_FILE = "inventory.json"
 
 
 def add_product(products):
@@ -34,7 +32,7 @@ def add_product(products):
         "stock": stock
     })
 
-    print("Product added successfully!")
+    print("\nProduct added successfully!")
 
 
 def update_stock(products):
@@ -101,6 +99,29 @@ def display_all(products):
             )
 
     print("------------------------------------------------")
+
+
+def load_inventory():
+    if os.path.exists(INVENTORY_FILE):
+        print("inventory.json found.")
+
+        try:
+            with open(INVENTORY_FILE, "r") as file:
+                products = json.load(file)
+
+            print("Inventory loaded successfully.")
+            return products
+
+        except (json.JSONDecodeError, OSError):
+            print("Could not read inventory.json. Starting with an empty inventory.")
+            return []
+
+    print("inventory.json not found. Starting with an empty inventory.")
+    return []
+
+
+inventory = load_inventory()
+
 
 while True:
     print("\n----------- MENU -----------")
